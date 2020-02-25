@@ -1,3 +1,3 @@
-from .minidump import *
-from .typedef import *
-from .winapi import *
+from ._minidump import *
+from ._typedef import *
+from ._winapi import *

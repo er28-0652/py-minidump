@@ -1,8 +1,9 @@
-from minidump import minidump
+from minidump import _minidump
 
 
 def main():
     import argparse
+
     p = argparse.ArgumentParser()
     p.add_argument('-p', '--pid', type=int, help='Process ID to dump')
     p.add_argument('-d', '--dest', type=str, help='Dest path to save dump file')
@@ -10,9 +11,9 @@ def main():
 
     args = p.parse_args()
     if args.snapshot is True:
-        minidump_func = minidump.create_minidump_from_snapshot
+        minidump_func = _minidump.create_minidump_from_snapshot
     else:
-        minidump_func = minidump.create_minidump
+        minidump_func = _minidump.create_minidump
 
     try:
         dump_path = minidump_func(args.pid, args.dest)
