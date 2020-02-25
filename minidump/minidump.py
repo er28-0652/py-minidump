@@ -2,7 +2,7 @@ import ctypes
 import typing as t
 from pathlib import Path
 
-from minidump import typdef, winapi
+from minidump import typedef, winapi
 
 
 def create_minidump(pid: int, dest: str = '.', filename: str = None) -> t.Optional[Path]:
@@ -13,13 +13,17 @@ def create_minidump(pid: int, dest: str = '.', filename: str = None) -> t.Option
                 return dumped_path
 
 
-@typdef.MINIDUMP_CALLBACK_FUNC
-def MinidumpCallbackFunc(CallbackParam: ctypes.c_void_p, CallbackInput: typdef.MINIDUMP_CALLBACK_INPUT, CallbackOutput: MINIDUMP_CALLBACK_OUTPUT) -> bool:
+@typedef.MINIDUMP_CALLBACK_FUNC
+def MinidumpCallbackFunc(
+    CallbackParam: ctypes.c_void_p, 
+    CallbackInput: typedef.MINIDUMP_CALLBACK_INPUT, 
+    CallbackOutput: typedef.MINIDUMP_CALLBACK_OUTPUT
+) -> bool:
     if CallbackInput.contents.CallbackType == 16:
         CallbackOutput.contents.Status = 0x00000001
     return True
 
-CALLBACK_FUNC = typdef.MINIDUMP_CALLBACK_INFORMATION(
+CALLBACK_FUNC = typedef.MINIDUMP_CALLBACK_INFORMATION(
     CallbackRoutine=MinidumpCallbackFunc,
     CallbackParam=None
 )

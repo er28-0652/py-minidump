@@ -6,7 +6,7 @@ def main():
     
     p = argparse.ArgumentParser()
     p.add_argument('-p', '--pid', type=int, help='Process ID to dump')
-    p.add_argument('-d', '--dest', type=str, help='Dest path to save dump file')
+    p.add_argument('-d', '--dest', type=str, default='.', help='Dest path to save dump file')
     p.add_argument('-s', '--snapshot', action='store_true', help='Enable if dump from snapshot')
 
     args = p.parse_args()
